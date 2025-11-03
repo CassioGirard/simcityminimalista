@@ -214,14 +214,22 @@ function calcularDemanda() {
         I: false
     };
     
-    // Demanda R: Alta se Empregos > População e Satisfação > 50%
-    demanda.R = estado.empregos > estado.populacao && estado.satisfacao > 50;
+    // No início do jogo (população e empregos = 0), sempre há demanda
+    if (estado.populacao === 0 && estado.empregos === 0) {
+        demanda.R = true;
+        demanda.C = true;
+        demanda.I = true;
+        return demanda;
+    }
     
-    // Demanda C: Alta se População > Empregos
-    demanda.C = estado.populacao > estado.empregos;
+    // Demanda R: Alta se Empregos >= População e Satisfação > 50%
+    demanda.R = estado.empregos >= estado.populacao && estado.satisfacao > 50;
     
-    // Demanda I: Alta se População > Empregos e Demanda C for alta
-    demanda.I = estado.populacao > estado.empregos && demanda.C;
+    // Demanda C: Alta se População >= Empregos
+    demanda.C = estado.populacao >= estado.empregos;
+    
+    // Demanda I: Alta se População >= Empregos e Demanda C for alta
+    demanda.I = estado.populacao >= estado.empregos && demanda.C;
     
     return demanda;
 }
@@ -297,23 +305,28 @@ function temEstradaAdjacente(row, col) {
 function calcularSatisfacao() {
     let satisfacao = 50; // Base
     
+    let numPolicias = 0;
+    let numIndustrias = 0;
+    
+    // Contar polícias e indústrias
     for (let i = 0; i < GRID_SIZE; i++) {
         for (let j = 0; j < GRID_SIZE; j++) {
             const celula = estado.grade[i][j];
             
-            // Bônus de Polícia (raio de 3)
             if (celula.tipo === TIPOS.POLICIA) {
-                const celulasDentroRaio = contarCelulasDentroRaio(i, j, 3, TIPOS.R);
-                satisfacao += celulasDentroRaio * 0.5; // 5% dividido pelas células no raio
+                numPolicias++;
             }
-            
-            // Punição de Indústria (raio de 3)
             if (celula.tipo === TIPOS.I) {
-                const celulasDentroRaio = contarCelulasDentroRaio(i, j, 3, TIPOS.R);
-                satisfacao -= celulasDentroRaio * 0.2; // 2% dividido pelas células no raio
+                numIndustrias++;
             }
         }
     }
+    
+    // Bônus: Cada polícia aumenta satisfação em 5%
+    satisfacao += numPolicias * 5;
+    
+    // Punição: Cada indústria diminui satisfação em 2%
+    satisfacao -= numIndustrias * 2;
     
     // Limitar entre 0 e 100
     estado.satisfacao = Math.max(0, Math.min(100, satisfacao));
