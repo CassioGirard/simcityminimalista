@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimCity Minimalista (Cursor Edition)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SimCity Minimalista</h1>
+            <p>Cursor Edition</p>
+        </header>
+        
+        <div class="game-wrapper">
+            <!-- Grade da Cidade -->
+            <div class="grid-container">
+                <div id="grid" class="grid"></div>
+            </div>
+            
+            <!-- Painel de Controle -->
+            <div class="control-panel">
+                <section class="stats">
+                    <h2>Estatísticas</h2>
+                    <div class="stat-item">
+                        <span class="stat-label">Tesouro:</span>
+                        <span class="stat-value" id="tesouro">1000</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">População:</span>
+                        <span class="stat-value" id="populacao">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Empregos:</span>
+                        <span class="stat-value" id="empregos">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Satisfação:</span>
+                        <span class="stat-value" id="satisfacao">50%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Ciclo:</span>
+                        <span class="stat-value" id="ciclo">0</span>
+                    </div>
+                </section>
+                
+                <section class="actions">
+                    <h2>Ações</h2>
+                    <div class="action-buttons">
+                        <button class="action-btn" id="btn-residencial" data-action="R">
+                            Zonar Residencial (R)
+                            <span class="cost">Custo: 50</span>
+                        </button>
+                        <button class="action-btn" id="btn-comercial" data-action="C">
+                            Zonar Comercial (C)
+                            <span class="cost">Custo: 75</span>
+                        </button>
+                        <button class="action-btn" id="btn-industrial" data-action="I">
+                            Zonar Industrial (I)
+                            <span class="cost">Custo: 100</span>
+                        </button>
+                        <button class="action-btn" id="btn-estrada" data-action="ESTRADA">
+                            Construir Estrada
+                            <span class="cost">Custo: 25</span>
+                        </button>
+                        <button class="action-btn" id="btn-policia" data-action="POLICIA">
+                            Construir Polícia
+                            <span class="cost">Custo: 200</span>
+                        </button>
+                    </div>
+                </section>
+                
+                <section class="simulation">
+                    <h2>Simulação</h2>
+                    <button class="cycle-btn" id="btn-avancar">Avançar Ciclo</button>
+                    <div class="current-action">
+                        <p>Ação Selecionada: <span id="acao-atual">Nenhuma</span></p>
+                    </div>
+                </section>
+                
+                <section class="legend">
+                    <h2>Legenda</h2>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #eee;"></div>
+                        <span>Vazio</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #aaffaa;"></div>
+                        <span>Residencial (R)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #aaaaff;"></div>
+                        <span>Comercial (C)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ffffaa;"></div>
+                        <span>Industrial (I)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #555;"></div>
+                        <span>Estrada</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #ff5555;"></div>
+                        <span>Polícia</span>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
+
